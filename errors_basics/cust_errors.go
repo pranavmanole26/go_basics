@@ -21,18 +21,23 @@ func (ced custErrorCode) string() string {
 
 //End: Creating enum for error code
 
+//Start: Creating custom Error
 type myError struct {
 	Code custErrorCode
 	Msg  string
 }
 
+// The type 'myError' implements 'Error() string' method that errors interface implements
 func (me *myError) Error() string {
 	return fmt.Sprintf(`{"code": "%s", "msg": "%s"}`, me.Code.string(), me.Msg)
 }
 
+// Creating instance of our custom error type
 func newError(code custErrorCode, msg string) error {
 	return &myError{Code: code, Msg: msg}
 }
+
+//End: Creating custom Error
 
 func search(ns []int, n int) (int, error) {
 	found := false
@@ -58,7 +63,9 @@ func main() {
 		fmt.Println("Number found at index:", index)
 	} else {
 		var me myError
+		fmt.Println(err)
 		json.Unmarshal([]byte(err.Error()), &me)
+		//TODO: Wrong 'Code' value printing. need to fix this.
 		fmt.Printf("Code: %s, error message: %s", me.Code.string(), me.Msg)
 	}
 }
