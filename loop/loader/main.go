@@ -8,6 +8,11 @@ import (
 func main() {
 	loader := []string{"\\", "|", "/", "-"}
 
+	// \
+	// \
+	// |
+	// -
+
 	for i := 0; ; i++ {
 		if i == len(loader) {
 			i = 0
