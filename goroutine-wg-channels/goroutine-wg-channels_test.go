@@ -1,4 +1,4 @@
-package goroutinewgchannels
+package main
 
 import "testing"
 
